@@ -1,0 +1,40 @@
+<h2>LIST:  <%=@list.name%></h2>
+
+
+	
+<% if @list.tasks.count > 0 %>
+	<h3>So far you have completed...</h3>
+		<% if @completed.count > 0 %>
+			<ol>
+				<% @completed.each do |task| %>
+					<%= erb :"lists/_list_task", locals: { list: @list, task: task }%>
+				<% end %>
+			</ol>
+		<% else %>
+			<h5>Nothing Yet!  Get to work!</h5>
+		<% end %>
+
+	<% if @outstanding.count > 0 %>
+		<h3>You still need to complete...</h3>
+		<ol>
+			<% @outstanding.each do |task| %>
+				<%= erb :"lists/_list_task", locals: { list: @list, task: task }%>
+			<% end %>
+		</ol>
+	<% else %>
+		<h1>You completed everything on the list!  GO YOU!</h1>
+	<% end %>
+
+<% else %>
+	<h3>You have no tasks in this list</h3>
+<% end %>
+
+<a href="/lists/<%=@list.id%>/tasks/new">Add a task to <%=@list.name%></a><br>
+<a href="/lists">Back to all lists</a><br>
+
+<form action="/lists/<%=@list.id%>" method="post">
+	<input type="hidden" name="_method" value="delete">
+	<input type="submit" value="Delete this list">
+</form>
+
+

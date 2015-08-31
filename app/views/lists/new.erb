@@ -1,0 +1,9 @@
+<%= erb :"_navbar" %>
+
+<h2>Create your new list</h2>
+
+<form name="new_list" action="/lists" method="post">
+	<label for="list_name">Name of list:</label>
+	<input type="text" name="list[name]">
+	<input type="submit" value="Create list">
+</form>

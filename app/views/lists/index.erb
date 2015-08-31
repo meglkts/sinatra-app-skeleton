@@ -1,0 +1,11 @@
+<%= erb :"_navbar" %>
+
+<h2>Your Lists</h2>
+
+<ol>
+<% @lists.each do |list| %>
+	<li><a href="/lists/<%=list.id%>"><%=list.name%></a></li>
+<% end %>
+</ol>
+
+<a href="/lists/new">Add a new list</a>
