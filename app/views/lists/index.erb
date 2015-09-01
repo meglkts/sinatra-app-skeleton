@@ -1,11 +1,13 @@
 <%= erb :"_navbar" %>
 
-<h2>Your Lists</h2>
+<div class="list-container" >
+	<h2>Your Lists</h2>
 
-<ol>
-<% @lists.each do |list| %>
-	<li><a href="/lists/<%=list.id%>"><%=list.name%></a></li>
-<% end %>
-</ol>
+	<ul id="list-index">
+		<% @lists.each do |list| %>
+			<%= erb :"lists/_list_list", locals: { list: list } %>
+		<% end %>
+	</ul>
 
-<a href="/lists/new">Add a new list</a>
+	<a id="add-list" href="/lists/new">Add a new list</a>
+</div>

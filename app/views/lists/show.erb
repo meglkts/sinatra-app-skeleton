@@ -1,5 +1,7 @@
-<h2>LIST:  <%=@list.name%></h2>
+<%= erb :"_navbar" %>
 
+<h2>LIST:  <%=@list.name%></h2>
+<a href="/lists/<%=@list.id%>/edit">edit list name</a>
 
 	
 <% if @list.tasks.count > 0 %>

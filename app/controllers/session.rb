@@ -13,7 +13,6 @@ post '/login' do
 end
 
 get '/logout' do
-  session.clear
-  @current_user = nil
+  logout
   redirect to "/login"
 end

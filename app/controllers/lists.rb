@@ -3,47 +3,48 @@ get '/lists' do
 	erb :"lists/index"
 end
 
+get '/lists/new' do
+	@list = List.new
+	if request.xhr?
+		erb :"lists/new", layout: false
+	else
+		erb :'lists/new'
+	end
+end
+
 post '/lists' do
-	list = List.new(params[:list])
+	list = current_user.lists.new(params[:list])
 	if list.save
-		current_user.lists << list
-		redirect to "/lists"
+		if request.xhr?
+			erb :"lists/_list_list", locals: { list: list }, layout: false
+		else
+			redirect to "/lists"
+		end
 	else
 		erb :"lists/new"
 	end
 end
 
-get '/lists/new' do
-	@list = List.new
-	erb :'lists/new'
-end
-
-get '/lists/:id' do
-	@list = List.find(params[:id])
+get '/lists/:list_id' do
+	@list = current_user.lists.find(params[:list_id])
 	@completed = @list.completed_tasks
 	@outstanding = @list.outstanding_tasks
 	erb :"lists/show"
 end
 
-get '/lists/:list_id/tasks/new' do
-	@task = Task.new
-	@list = List.find(params[:list_id])
-	erb :"tasks/new"
+get '/lists/:list_id/edit' do
+	@list = current_user.lists.find(params[:list_id])
+	erb :"lists/edit"
 end
 
-post '/lists/:list_id/tasks' do
-	task = Task.new(params[:task])
-	list = List.find(params[:list_id])
-	if task.save
-		list.tasks << task
-		redirect to "/lists/#{params[:list_id]}"
-	else
-		erb :"tasks/new"
-	end
+put '/lists/:list_id' do
+	@list = current_user.lists.find(params[:list_id])
+	@list.update(params[:list])
+	redirect to "/lists/#{@list.id}"
 end
 
 delete '/lists/:list_id' do
-	List.find(params[:list_id]).destroy
+	current_user.lists.find(params[:list_id]).destroy
 	redirect to "/lists"
 end
 

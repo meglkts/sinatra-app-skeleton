@@ -1,5 +1,14 @@
 <li>
-	<%=task.text%> <form name="complete_task" action="/lists/<%=list.id%>/tasks" method="post">
-	<button name="completed" type="submit" value="completed[true]">complete</button>
+	<%=task.text%> 
+	<form name="delete_task" action="/lists/<%=list.id%>/tasks/<%=task.id%>" method="post">
+		<input type="hidden" name="_method" value="DELETE">
+		<button name="completed" type="submit">delete</button>
 	</form>
+
+	<% if !task.completed %>
+		<form name="complete_task" action="/lists/<%=list.id%>/tasks/<%=task.id%>" method="post">
+		<input type="hidden" name="_method" value="PUT">
+		<button name="completed" type="submit" value="completed[true]">complete</button>
+		</form>
+	<% end %>
 </li>

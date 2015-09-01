@@ -1,9 +1,9 @@
-<%= erb :"_navbar" %>
+<div id="new-list-container">
+	<h2>Create your new list</h2>
 
-<h2>Create your new list</h2>
-
-<form name="new_list" action="/lists" method="post">
-	<label for="list_name">Name of list:</label>
-	<input type="text" name="list[name]">
-	<input type="submit" value="Create list">
-</form>
+	<form id="new-list-form" action="/lists" method="post">
+		<label for="list_name">Name of list:</label>
+		<input type="text" name="list[name]">
+		<input type="submit" value="Create list">
+	</form>
+</div>

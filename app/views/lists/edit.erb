@@ -1,0 +1,10 @@
+<%= erb :"_navbar" %>
+
+<h2>Edit the name of your <%=@list.name%> list</h2>
+
+<form name="new_list_name" action="/lists/<%=@list.id%>" method="post">
+	<input type="hidden" name="_method" value="PUT">
+	<label for="list_name">New name:</label>
+	<input type="text" name="list[name]">
+	<input type="submit" value="Save name">
+</form>

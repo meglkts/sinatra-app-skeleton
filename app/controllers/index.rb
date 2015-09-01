@@ -1,5 +1,8 @@
 get '/' do
-
-  erb :'session/login'
+	if current_user
+    redirect to "/lists"
+	else
+  	erb :'session/login'
+  end
 end
 
