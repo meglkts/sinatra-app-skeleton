@@ -1,5 +1,7 @@
+<div id="new-task-container">
 <h2>New task for <%=@list.name%></h2>
-<form name="new_task" action="/lists/<%=@list.id%>/tasks" method="post">
+<form id="new-task-form" name="new_task" action="/lists/<%=@list.id%>/tasks" method="post">
 	<input type="text" name="task[text]" >
 	<input type="submit" value="Add task">
 </form>
+</div>

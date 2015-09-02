@@ -1,13 +1,15 @@
 <%= erb :"_navbar" %>
 
+<div class="list-show-container">
+
 <h2>LIST:  <%=@list.name%></h2>
 <a href="/lists/<%=@list.id%>/edit">edit list name</a>
 
-	
+<div id="completed-container">
 <% if @list.tasks.count > 0 %>
 	<h3>So far you have completed...</h3>
 		<% if @completed.count > 0 %>
-			<ol>
+			<ol id="completed-tasks">
 				<% @completed.each do |task| %>
 					<%= erb :"lists/_list_task", locals: { list: @list, task: task }%>
 				<% end %>
@@ -15,10 +17,12 @@
 		<% else %>
 			<h5>Nothing Yet!  Get to work!</h5>
 		<% end %>
+</div>
 
+<div id="outstanding-container">
 	<% if @outstanding.count > 0 %>
 		<h3>You still need to complete...</h3>
-		<ol>
+		<ol id="outstanding-tasks">
 			<% @outstanding.each do |task| %>
 				<%= erb :"lists/_list_task", locals: { list: @list, task: task }%>
 			<% end %>
@@ -30,13 +34,15 @@
 <% else %>
 	<h3>You have no tasks in this list</h3>
 <% end %>
+</div>
 
-<a href="/lists/<%=@list.id%>/tasks/new">Add a task to <%=@list.name%></a><br>
+<a id="add-task" href="/lists/<%=@list.id%>/tasks/new">Add a task to <%=@list.name%></a><br>
 <a href="/lists">Back to all lists</a><br>
 
-<form action="/lists/<%=@list.id%>" method="post">
+<form id="delete-list" action="/lists/<%=@list.id%>" method="post">
 	<input type="hidden" name="_method" value="delete">
 	<input type="submit" value="Delete this list">
 </form>
+</div>
 
 

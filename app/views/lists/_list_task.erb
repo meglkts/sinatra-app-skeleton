@@ -2,7 +2,7 @@
 	<%=task.text%> 
 	<form name="delete_task" action="/lists/<%=list.id%>/tasks/<%=task.id%>" method="post">
 		<input type="hidden" name="_method" value="DELETE">
-		<button name="completed" type="submit">delete</button>
+		<button id="delete-task" name="delete" type="submit">delete</button>
 	</form>
 
 	<% if !task.completed %>

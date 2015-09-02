@@ -1,15 +1,23 @@
 get '/lists/:list_id/tasks/new' do
 	@task = Task.new
 	@list = List.find(params[:list_id])
-	erb :"tasks/new"
+	if request.xhr?
+		erb :"tasks/new", layout: false
+	else
+		erb :"tasks/new"
+	end
 end
 
 post '/lists/:list_id/tasks' do
 	task = Task.new(params[:task])
-	list = List.find(params[:list_id])
+	list = current_user.lists.find(params[:list_id])
 	if task.save
 		list.tasks << task
-		redirect to "/lists/#{params[:list_id]}"
+		if request.xhr?
+			erb :"lists/_list_task", layout: false, locals: { task: task, list: list }
+		else
+			redirect to "/lists/#{params[:list_id]}"
+		end
 	else
 		erb :"tasks/new"
 	end
